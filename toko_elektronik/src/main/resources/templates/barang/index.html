@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manajemen Barang</title>
+    
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+    <div class="main-container">
+        
+        <h2>Manajemen Barang Elektronik</h2>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 16px;">
+            <div>
+                <a th:href="@{/dashboard}" style="font-weight: 600;">← Kembali ke Dashboard</a>
+            </div>
+            <div>
+                <a th:href="@{/barang/tambah}" class="btn">+ Tambah Barang</a>
+                <a th:href="@{/logout}" style="color: var(--danger); margin-left: 16px; font-weight: 600;">Logout</a>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Kode</th>
+                        <th>Nama Barang</th>
+                        <th>Kategori</th>
+                        <th>Harga</th>
+                        <th>Stok</th>
+                        <th style="text-align: center;">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="barang : ${listBarang}">
+                        <td th:text="${barang.kodeBarang}" style="font-weight: 600; color: var(--text-heading);"></td>
+                        <td th:text="${barang.namaBarang}"></td>
+                        <td>
+                            <span style="background: #e2e8f0; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem; font-weight: 500;">
+                                [[${barang.kategori}]]
+                            </span>
+                        </td>
+                        <td th:text="${barang.harga}"></td>
+                        <td th:text="${barang.stok}"></td>
+                        <td style="text-align: center; white-space: nowrap;">
+                            <a th:href="@{/barang/edit/{kode}(kode=${barang.kodeBarang})}" style="margin-right: 8px;">Edit</a>
+                            <span style="color: var(--border-color);">|</span>
+                            <a th:href="@{/barang/hapus/{kode}(kode=${barang.kodeBarang})}"
+                               style="color: var(--danger); margin-left: 8px;"
+                               onclick="return confirm('Yakin ingin menghapus barang ini?')">Hapus</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</body>
+</html>
